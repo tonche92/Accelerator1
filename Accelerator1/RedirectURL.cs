@@ -25,7 +25,11 @@ namespace Accelerator1
             {
                 shortUrl = GetRandomUrl();
             } while (_dbcontext.UrlRedirections.Where(x => x.ShortUrl == shortUrl).FirstOrDefault() != null);
-            
+            var urlRedirectionRow = new UrlRedirection();
+            urlRedirectionRow.ShortUrl = shortUrl;
+            urlRedirectionRow.Website = website;
+            _dbcontext.UrlRedirections.Add(urlRedirectionRow);
+            _dbcontext.SaveChanges();
         }
 
         private static string GetRandomUrl()
